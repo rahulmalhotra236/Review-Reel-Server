@@ -2,7 +2,10 @@ import Space from "../models/space.models.js"
 
 const dashboardController = async (req, res) => {
   try {
-    const space = await Space.find()
+    const spaceName = req.params.spaceName
+    console.log("don" + spaceName)
+    const space = await Space.findOne({ spaceName })
+    // console.log(space)
     if (!space) {
       return res.status(400).json({
         success: false,
@@ -17,6 +20,27 @@ const dashboardController = async (req, res) => {
     return res.status(400).json({
       success: false,
       message: `Error in dashboardController ${error.message}`,
+    })
+  }
+}
+
+const dashboardAllSpaceController = async (req, res) => {
+  try {
+    const space = await Space.find()
+    if (!space) {
+      return res.status(400).json({
+        success: false,
+        message: "No space found",
+      })
+    }
+    res.status(200).json({
+      success: true,
+      space,
+    })
+  } catch (error) {
+    return res.status(400).json({
+      success: false,
+      message: `Error in dashboardAllSpaceController ${error.message}`,
     })
   }
 }
@@ -80,4 +104,9 @@ const deleteSpaceController = async (req, res) => {
   }
 }
 
-export { dashboardController, newSpaceController, deleteSpaceController }
+export {
+  dashboardController,
+  newSpaceController,
+  deleteSpaceController,
+  dashboardAllSpaceController,
+}

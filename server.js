@@ -1,5 +1,6 @@
 import express from "express"
 import dotenv from "dotenv"
+import cors from "cors"
 import spaceRoute from "./routes/space.routes.js"
 import testimonialRoute from "./routes/testimonial.routes.js"
 import dbConnection from "./config/db.js"
@@ -7,6 +8,12 @@ dotenv.config()
 
 const app = express()
 
+app.use(
+  cors({
+    origin: [process.env.FRONTEND_URL],
+    credentials: true,
+  })
+)
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 

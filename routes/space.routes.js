@@ -1,5 +1,6 @@
 import express from "express"
 import {
+  dashboardAllSpaceController,
   dashboardController,
   deleteSpaceController,
   newSpaceController,
@@ -7,7 +8,8 @@ import {
 
 const router = express.Router()
 
-router.get("/", dashboardController)
+router.get("/:spaceName", dashboardController)
+router.get("/", dashboardAllSpaceController)
 router.post("/new-space", newSpaceController)
 router.delete("/:spaceName/delete", deleteSpaceController)
 

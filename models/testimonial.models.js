@@ -14,6 +14,12 @@ const testimonialSchema = mongoose.Schema({
   yourEmail: {
     type: String,
   },
+  space: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Space",
+    },
+  ],
 })
 
 const Testimonial = mongoose.model("Testimonial", testimonialSchema)

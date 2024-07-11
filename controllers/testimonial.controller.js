@@ -6,7 +6,7 @@ const createTestController = async (req, res) => {
     const { spaceName } = req.params
     const { stars, yourTestimonial, yourName, yourEmail } = req.body
 
-    if (!stars || !yourTestimonial || !yourName || !yourEmail) {
+    if (!yourTestimonial || !yourName || !yourEmail) {
       return res.status(400).json({
         success: false,
         message: "All fields are required",
@@ -36,7 +36,9 @@ const createTestController = async (req, res) => {
     }
 
     space.testimonials.push(testimonial._id)
+    testimonial.space.push(space._id)
     await space.save()
+    await testimonial.save()
 
     res.status(200).json({
       success: true,
@@ -62,7 +64,10 @@ const getAllTestController = async (req, res) => {
         message: "No space found",
       })
     }
-    const testimonial = await Testimonial.find()
+    console.log(space._id)
+    const testimonial = await Testimonial.find({ space: space._id })
+    // const testimonial = await Testimonial.find()
+    console.log(testimonial)
     if (!testimonial) {
       return res.status(200).json({
         success: false,
