@@ -14,6 +14,7 @@ const createTestController = async (req, res) => {
     }
 
     const space = await Space.findOne({ spaceName })
+    console.log(space)
     if (!space) {
       res.status(400).json({
         success: false,

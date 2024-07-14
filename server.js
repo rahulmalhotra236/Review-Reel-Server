@@ -20,7 +20,7 @@ app.use(express.urlencoded({ extended: true }))
 
 app.use("/api/v1/dashboard", spaceRoute)
 app.use("/api/v1/testimonial", testimonialRoute)
-app.use("/api/v1/", widgetRoute)
+app.use("/api/v1", widgetRoute)
 
 dbConnection()
 app.listen(process.env.PORT, () => {
