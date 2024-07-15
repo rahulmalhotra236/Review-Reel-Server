@@ -14,6 +14,10 @@ const testimonialSchema = mongoose.Schema({
   yourEmail: {
     type: String,
   },
+  isLiked: {
+    type: Boolean,
+    default: false,
+  },
   space: [
     {
       type: mongoose.Schema.Types.ObjectId,
