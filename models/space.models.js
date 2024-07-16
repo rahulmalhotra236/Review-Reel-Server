@@ -18,12 +18,6 @@ const spaceSchema = mongoose.Schema({
       ref: "Testimonial",
     },
   ],
-  showTestimonials: [
-    {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "Testimonial",
-    },
-  ],
 })
 
 const Space = mongoose.model("Space", spaceSchema)
