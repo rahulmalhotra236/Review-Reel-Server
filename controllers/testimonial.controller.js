@@ -122,35 +122,45 @@ const updateLikeTestController = async (req, res) => {
     testimonial,
   })
 }
-
 const editTestController = async (req, res) => {
-  const { spaceName, testimonialId } = req.params
+  const { spaceName } = req.params
   const { spaceNam, headerTitle, yourCustomMessage } = req.body
-  const space = await Space.findOne({ spaceName })
 
-  if (!space) {
-    return res.status(400).json({
+  try {
+    const space = await Space.findOne({ spaceName })
+
+    if (!space) {
+      return res.status(400).json({
+        success: false,
+        message: "No space found",
+      })
+    }
+
+    const updatedSpace = await Space.findOneAndUpdate(
+      { spaceName },
+      { spaceNam, headerTitle, yourCustomMessage },
+      { new: true }
+    )
+
+    if (!updatedSpace) {
+      return res.status(400).json({
+        success: false,
+        message: "No space found",
+      })
+    }
+
+    res.status(200).json({
       success: true,
-      message: "No space found",
+      message: "Space updated successfully",
+      space: updatedSpace,
     })
-  }
-
-  const testimonial = await Testimonial.findOneAndUpdate(
-    { _id: testimonialId, space: space._id },
-    { spaceNam, headerTitle, yourCustomMessage }, // Update fields
-    { new: true } // Return the updated document
-  )
-  if (!testimonial) {
-    return res.status(400).json({
+  } catch (error) {
+    res.status(500).json({
       success: false,
-      message: "No testimonial found",
+      message: "Server error",
+      error: error.message,
     })
   }
-  res.status(200).json({
-    success: true,
-    message: "Testimonial updated successfully",
-    testimonial,
-  })
 }
 
 export {

@@ -10,7 +10,7 @@ const router = express.Router()
 
 router.get("/:spaceName/all-testimonials", getAllTestController)
 router.put("/:spaceName/:testimonialId/update-like", updateLikeTestController)
-router.put("/:spaceName/:testimonialId/edit-testimonial", editTestController)
+router.put("/:spaceName/edit-space", editTestController)
 router.post("/:spaceName/create-testimonial", createTestController)
 
 export default router
