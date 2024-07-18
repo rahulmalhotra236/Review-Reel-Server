@@ -123,11 +123,11 @@ const updateLikeTestController = async (req, res) => {
   })
 }
 const editTestController = async (req, res) => {
-  const { spaceName } = req.params
-  const { spaceNam, headerTitle, yourCustomMessage } = req.body
+  const { spacename } = req.params.spaceName
+  const { spaceName, headerTitle, yourCustomMessage } = req.body
 
   try {
-    const space = await Space.findOne({ spaceName })
+    const space = await Space.findOne({ spacename })
 
     if (!space) {
       return res.status(400).json({
@@ -137,8 +137,8 @@ const editTestController = async (req, res) => {
     }
 
     const updatedSpace = await Space.findOneAndUpdate(
-      { spaceName },
-      { spaceNam, headerTitle, yourCustomMessage },
+      { spacename },
+      { spaceName, headerTitle, yourCustomMessage },
       { new: true }
     )
 

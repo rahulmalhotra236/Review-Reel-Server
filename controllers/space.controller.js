@@ -2,10 +2,10 @@ import Space from "../models/space.models.js"
 
 const dashboardController = async (req, res) => {
   try {
-    const spaceName = req.params.spaceName
+    const { spaceName } = req.params
     console.log("don" + spaceName)
     const space = await Space.findOne({ spaceName })
-    // console.log(space)
+
     if (!space) {
       return res.status(400).json({
         success: false,
