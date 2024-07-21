@@ -5,6 +5,7 @@ import jwt from "jsonwebtoken"
 // const signinController = async (req, res) => {
 //   const { email, password } = req.body
 // }
+
 const signinController = async (req, res) => {
   const { email, password } = req.body
 
@@ -27,7 +28,10 @@ const signinController = async (req, res) => {
     })
 
     // Send response
-    res.cookie("token", token, { httpOnly: true })
+    res.cookie("token", token, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === "production",
+    })
     return res.status(200).json({ message: "Sign-in successful", token })
   } catch (error) {
     console.error(error)
@@ -37,7 +41,6 @@ const signinController = async (req, res) => {
 
 const signupController = async (req, res) => {
   const { firstName, email, password } = req.body
-  console.log(firstName, email, password)
 
   if (!firstName || !email || !password) {
     return res.status(400).json({
@@ -76,7 +79,5 @@ const signupController = async (req, res) => {
     })
   }
 }
-
-export default signupController
 
 export { signinController, signupController }

@@ -6,7 +6,7 @@ import {
 
 const router = express.Router()
 
-router.get("/signin", signinController)
-router.get("/signup", signupController)
+router.post("/signin", signinController)
+router.post("/signup", signupController)
 
 export default router

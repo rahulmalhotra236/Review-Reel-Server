@@ -3,11 +3,12 @@ import mongoose from "mongoose"
 const authSchema = mongoose.Schema({
   firstName: {
     type: String,
-    unique: true,
   },
 
   email: {
     type: String,
+    required: true,
+    unique: true,
   },
   password: {
     type: String,
