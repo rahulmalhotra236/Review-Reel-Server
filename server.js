@@ -6,6 +6,7 @@ import testimonialRoute from "./routes/testimonial.routes.js"
 import widgetRoute from "./routes/widget.routes.js"
 import authRoute from "./routes/auth.routes.js"
 import dbConnection from "./config/db.js"
+import cookieParser from "cookie-parser"
 dotenv.config()
 
 const app = express()
@@ -17,6 +18,7 @@ app.use(
   })
 )
 app.use(express.json())
+app.use(cookieParser())
 app.use(express.urlencoded({ extended: true }))
 
 app.use("/api/v1/dashboard", spaceRoute)
