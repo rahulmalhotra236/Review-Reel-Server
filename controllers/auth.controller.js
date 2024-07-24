@@ -30,7 +30,8 @@ const signinController = async (req, res) => {
     // Send response
     res.cookie("token", token, {
       httpOnly: true,
-      secure: process.env.NODE_ENV === "production",
+      secure: false,
+      // secure: process.env.NODE_ENV === "production",
     })
     return res.status(200).json({ message: "Sign-in successful", token })
   } catch (error) {

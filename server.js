@@ -7,6 +7,7 @@ import widgetRoute from "./routes/widget.routes.js"
 import authRoute from "./routes/auth.routes.js"
 import dbConnection from "./config/db.js"
 import cookieParser from "cookie-parser"
+import { protect } from "./middlewares/protect.js"
 dotenv.config()
 
 const app = express()
@@ -21,7 +22,7 @@ app.use(express.json())
 app.use(cookieParser())
 app.use(express.urlencoded({ extended: true }))
 
-app.use("/api/v1/dashboard", spaceRoute)
+app.use("/api/v1/dashboard", protect, spaceRoute)
 app.use("/api/v1/testimonial", testimonialRoute)
 app.use("/api/v1", widgetRoute)
 app.use("/api/v1/auth", authRoute)
