@@ -1,3 +1,4 @@
+import Auth from "../models/auth.models.js"
 import Space from "../models/space.models.js"
 
 const dashboardController = async (req, res) => {
@@ -47,6 +48,7 @@ const dashboardAllSpaceController = async (req, res) => {
 const newSpaceController = async (req, res) => {
   try {
     const { spaceName, headerTitle, yourCustomMessage } = req.body
+    const userId = req.user._id
 
     if (!spaceName || !headerTitle || !yourCustomMessage) {
       return res.status(400).json({
@@ -58,6 +60,7 @@ const newSpaceController = async (req, res) => {
       spaceName,
       headerTitle,
       yourCustomMessage,
+      user: userId,
     })
 
     if (!space) {
@@ -68,6 +71,11 @@ const newSpaceController = async (req, res) => {
     }
 
     await space.save()
+    const user = await Auth.findById(userId)
+    if (user) {
+      user.spaces.push(space._id)
+      await user.save()
+    }
 
     res.status(200).json({
       success: true,
