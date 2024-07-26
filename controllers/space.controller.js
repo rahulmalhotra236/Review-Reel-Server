@@ -48,7 +48,9 @@ const dashboardAllSpaceController = async (req, res) => {
 const newSpaceController = async (req, res) => {
   try {
     const { spaceName, headerTitle, yourCustomMessage } = req.body
+    console.log("in try dom")
     const userId = req.user._id
+    console.log("userId" + userId)
 
     if (!spaceName || !headerTitle || !yourCustomMessage) {
       return res.status(400).json({
@@ -60,7 +62,7 @@ const newSpaceController = async (req, res) => {
       spaceName,
       headerTitle,
       yourCustomMessage,
-      user: userId,
+      auth: userId,
     })
 
     if (!space) {

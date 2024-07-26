@@ -5,7 +5,10 @@ const protect = async (req, res, next) => {
   if (req.cookies.token) {
     try {
       const data = jwt.verify(req.cookies.token, process.env.JWT_SECRET)
-      let user = await Auth.findOne({ email: data.email })
+
+      const userId = data.userId
+      let user = await Auth.findById(userId)
+
       req.user = user
       next()
     } catch (error) {

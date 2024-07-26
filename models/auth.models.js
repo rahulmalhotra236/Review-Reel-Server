@@ -13,7 +13,7 @@ const authSchema = mongoose.Schema({
   password: {
     type: String,
   },
-  space: [
+  spaces: [
     {
       type: mongoose.Schema.Types.ObjectId,
       ref: "Space",
