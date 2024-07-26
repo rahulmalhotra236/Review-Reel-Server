@@ -27,16 +27,19 @@ const dashboardController = async (req, res) => {
 
 const dashboardAllSpaceController = async (req, res) => {
   try {
-    const space = await Space.find()
-    if (!space) {
+    const userId = req.user._id
+    const spaces = await Space.find({ auth: userId })
+    console.log("spaces" + spaces)
+    if (spaces.length === 0) {
       return res.status(400).json({
         success: false,
-        message: "No space found",
+        message: "No spaces found",
       })
     }
+
     res.status(200).json({
       success: true,
-      space,
+      spaces,
     })
   } catch (error) {
     return res.status(400).json({
