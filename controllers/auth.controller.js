@@ -81,4 +81,13 @@ const signupController = async (req, res) => {
   }
 }
 
-export { signinController, signupController }
+const signoutController = (req, res) => {
+  res.clearCookie("token", {
+    httpOnly: true,
+    secure: false, // Set to true if using HTTPS in production
+    // secure: process.env.NODE_ENV === "production",
+  })
+  return res.status(200).json({ message: "Signout successful" })
+}
+
+export { signinController, signupController, signoutController }
