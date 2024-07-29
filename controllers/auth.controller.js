@@ -90,4 +90,33 @@ const signoutController = (req, res) => {
   return res.status(200).json({ message: "Signout successful" })
 }
 
-export { signinController, signupController, signoutController }
+const profileController = async (req, res) => {
+  try {
+    const userId = req.user._id
+    console.log(userId)
+    const user = await Auth.findById(userId)
+    if (!user) {
+      return res.status(404).json({
+        success: false,
+        message: "User not found",
+      })
+    }
+    console.log(user)
+    return res.status(200).json({
+      success: true,
+      user,
+    })
+  } catch (error) {
+    return res.status(500).json({
+      success: false,
+      message: "Server error",
+    })
+  }
+}
+
+export {
+  signinController,
+  signupController,
+  signoutController,
+  profileController,
+}
