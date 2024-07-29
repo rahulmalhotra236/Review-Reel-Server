@@ -1,5 +1,6 @@
 import express from "express"
 import {
+  editProfileController,
   profileController,
   signinController,
   signoutController,
@@ -13,5 +14,6 @@ router.post("/signin", signinController)
 router.post("/signup", signupController)
 router.post("/signout", protect, signoutController)
 router.get("/profile", protect, profileController)
+router.put("/edit-profile", protect, editProfileController)
 
 export default router
